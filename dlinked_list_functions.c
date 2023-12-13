@@ -12,7 +12,10 @@ stack_t *add_node(stack_t **head, const int n)
 
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
-		return (NULL);
+	{
+		dprintf(2, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 	temp = *head;
 	new_node->n = n;
 	new_node->next = temp;
