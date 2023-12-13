@@ -32,5 +32,9 @@ typedef struct instruction_s
 } instruction_t;
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+
+stack_t *add_node(stack_t **head, const int n);
 
 #endif
