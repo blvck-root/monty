@@ -23,3 +23,18 @@ stack_t *add_node(stack_t **head, const int n)
 
 	return (new_node);
 }
+
+/**
+ * free_stack - frees a linked list.
+ * @head: pointer to the first node.
+ */
+void free_stack(stack_t *head)
+{
+	stack_t *temp;
+
+	while ((temp = head) != NULL)
+	{
+		head = head->next;
+		free(temp);
+	}
+}
