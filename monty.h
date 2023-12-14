@@ -49,8 +49,21 @@ typedef struct token_s
 	int type;
 } Token;
 
+/* external variables */
+extern int arg;
+extern int line_number;
+extern stack_t top;
+extern instruction_t operations[];
+
+/* prototypes */
+typedef void (*func_t)(stack_t, int);
+func_t get_operation(char *opcode);
 stack_t *add_node(stack_t **head, const int n);
 FILE *check_file(int ac, char *av[]);
+
+/* helper functions */
 char **tokenize(char *str, char *delim);
+int _atoi(char *str);
+void execute_op(funct_t f);
 
 #endif

@@ -41,14 +41,10 @@ int main(int argc, char *argv[])
 			exit(EXIT_FAILURE);
 		}
 
-		i = 0;		
-		while (tokens[i])
-		{
-			if (strcmp(tokens[i], "$") != 0)
-				printf("%s ", tokens[i]);
-			++i;
-		}
-		printf("\n");
+		command = tokens[0];
+		if (strcmp(command, "push") == 0)
+			arg = _atoi(tokens[1]);
+		execute_op(get_operation(command), line_num);
 	}
 	free(line);
 	free(tokens);

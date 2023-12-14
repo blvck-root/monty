@@ -48,3 +48,42 @@ void free_tokens(Token *tokens, int num_tokens)
 	}
 	free(tokens);
 }
+
+/**
+ * _atoi - convert string to integer
+ * @str: string
+ * Return: integer equivalent of string or errs out
+ */
+int _atoi(const char* str)
+{
+	int result = 0;
+	int sign = 1;
+	int i = 0;
+
+	/* Check for leading whitespace */
+	while (str[i] == ' ')
+		i++;
+
+	/* Check sign */
+	if (str[i] == '+' || str[i] == '-')
+	{
+		sign = str[i] == '-' ? -1 : 1;
+		i++;
+	}
+
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+
+	/* Check conversion success */
+	if (i == strlen(str))
+	{
+		return result * sign;
+	}
+	else
+	{
+		/* Conversion failed */
+	}
+}
