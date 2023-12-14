@@ -51,5 +51,6 @@ typedef struct token_s
 
 stack_t *add_node(stack_t **head, const int n);
 FILE *check_file(int ac, char *av[]);
+char **tokenize(char *str, char *delim);
 
 #endif
