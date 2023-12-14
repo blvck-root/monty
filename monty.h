@@ -38,5 +38,6 @@ typedef struct instruction_s
 #define MAX_TOKEN 256
 
 stack_t *add_node(stack_t **head, const int n);
+FILE *check_file(int ac, char *av[]);
 
 #endif
