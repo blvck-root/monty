@@ -32,3 +32,19 @@ Token *tokenize_line(char *line, int *num_tokens)
 	}
 	return (tokens);
 }
+
+/**
+ * free_tokens - frees the memory allocated for tokens.
+ * @tokens: the tokens to be freed.
+ * @num_tokens: the number of tokens in the array.
+ */
+void free_tokens(Token *tokens, int num_tokens)
+{
+	int i;
+
+	for (i = 0; i < num_tokens; i++)
+	{
+		free(tokens[i].value);
+	}
+	free(tokens);
+}
