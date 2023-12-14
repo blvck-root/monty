@@ -20,21 +20,17 @@ FILE *check_file(int ac, char *av[])
 
 int main(int ac, char *av[])
 {
-	int i;
+	int i, num_tokens;
 	FILE *file;
-	char line[MAX_TOKEN], *token, *args[2] = {NULL, NULL};
+	char line[MAX_TOKEN];
+	Token *tokens;
 	
 	file = check_file(ac, av);
 	while (fgets(line, sizeof(line), file))
 	{
-		i = 0;
-		args[i] = strtok(line, " \t\n");
-		while (args[i])
-		{
-			i++;
-			args[i] = strtok(NULL, " \t\n");
-		}
+		tokens = tokenize_line(line, &num_tokens);
 	}
+	free_tokens(tokens, num_tokens);
 
 	return (0);
 }
