@@ -35,6 +35,8 @@ typedef struct instruction_s
 #include <stdlib.h>
 #include <stddef.h>
 
+#define MAX_TOKEN 256
+
 stack_t *add_node(stack_t **head, const int n);
 
 #endif
