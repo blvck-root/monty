@@ -24,3 +24,15 @@ void _add(stack_t **stack, unsigned int line_number)
 	node->next->n = node->n + tmp;
 	pop(stack, line_number);
 }
+
+/**
+ * nop - does nothing
+ * @stack: stack
+ * @line_number: line number
+ * Return: void
+ */
+void nop(stack_t **stack, unsigned int line_number)
+{
+	(void) line_number;
+	(void) stack;
+}
