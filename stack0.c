@@ -62,9 +62,17 @@ void pall(stack_t **stack, unsigned int line_number)
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
+	stack_t *node;
 	(void) line_number;
-	(void) stack;
-	printf("pint\n");
+
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't print, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	node = *stack;
+	printf("%d\n", node->n);
 }
 
 /**

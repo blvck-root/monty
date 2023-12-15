@@ -14,6 +14,7 @@ void execute_op(char *opcode, stack_t **top, unsigned int line_num)
 	instruction_t operations[24] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
 	(void) arg;
