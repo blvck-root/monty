@@ -83,10 +83,25 @@ void pint(stack_t **stack, unsigned int line_number)
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
+	stack_t *node;
 	(void) line_number;
-	(void) stack;
-	printf("pop\n");
+
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	node = *stack;
+	*stack = node->next;
+	if (node->next)
+	{
+		(*stack)->prev = NULL;
+		node->next = NULL;
+	}
+	free(node);
 }
+
 
 /**
  * swap - print all elements of a stack

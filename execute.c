@@ -15,6 +15,7 @@ void execute_op(char *opcode, stack_t **top, unsigned int line_num)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 		{NULL, NULL}
 	};
 	(void) arg;
