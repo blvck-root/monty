@@ -15,7 +15,7 @@ int _atoi(const char *str, unsigned int line_num)
 
 	if (!str)
 	{
-		fprintf(stderr, "L%u: usage: push integer", line_num);
+		fprintf(stderr, "L%u: usage: push integer\n", line_num);
 		exit(EXIT_SUCCESS);
 	}
 
@@ -43,7 +43,7 @@ int _atoi(const char *str, unsigned int line_num)
 	}
 	else
 	{
-		fprintf(stderr, "L%u: usage: push integer", line_num);
+		fprintf(stderr, "L%u: usage: push integer\n", line_num);
 		exit(EXIT_FAILURE);
 	}
 }
