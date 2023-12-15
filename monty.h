@@ -1,9 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-
-#define MAX_TOKEN 256
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -38,32 +35,29 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/**
- * struct token_s - Structure for a token.
- * @value: the value of the token or opcode.
- * @type: field to represent the type of token.
- */
-typedef struct token_s
-{
-	char *value;
-	int type;
-} Token;
-
 /* external variables */
 extern int arg;
-extern int line_number;
-extern stack_t top;
-extern instruction_t operations[];
-
-/* prototypes */
-typedef void (*func_t)(stack_t, int);
-func_t get_operation(char *opcode);
-stack_t *add_node(stack_t **head, const int n);
-FILE *check_file(int ac, char *av[]);
 
 /* helper functions */
 char **tokenize(char *str, char *delim);
-int _atoi(char *str);
-void execute_op(funct_t f);
+int _atoi(const char *str, unsigned int line_num);
+void execute_op(char *opcode, stack_t **top, unsigned int line_num);
+
+/* stack functions */
+void push(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void _add(stack_t **stack, unsigned int line_number);
+void _sub(stack_t **stack, unsigned int line_number);
+void _mul(stack_t **stack, unsigned int line_number);
+void _div(stack_t **stack, unsigned int line_number);
+void _mod(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);
+void rotl(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
 
 #endif

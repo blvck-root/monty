@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <string.h>
 
+int arg;
+
 /**
  * main - interpret monty byte code
  * @argc: number of arguments
@@ -13,9 +15,12 @@
 int main(int argc, char *argv[])
 {
 	FILE *stream;
-	char **tokens, *line = NULL;
-	size_t line_num = 0, len = 0;
-	ssize_t i, nread;
+	char *instruction, **tokens, *line = NULL;
+	unsigned int line_num = 0;
+	/*int arg = 0;*/
+	stack_t *top = NULL;
+	size_t len = 0;
+	ssize_t nread;
 
 	if (argc != 2)
 	{
@@ -33,19 +38,18 @@ int main(int argc, char *argv[])
 	while ((nread = getline(&line, &len, stream)) != -1)
 	{
 		++line_num;
-		/* detect instructions and execute code */
 		tokens = tokenize(line, "$ \n\t\r\v\f");
-		if (!tokens)
+		if (!tokens[0])
 		{
-			fprintf(stderr, "Line %ld - Error: something bad happened\n", line_num);
-			exit(EXIT_FAILURE);
+			continue; /* do nothing if line is empty */
 		}
 
-		command = tokens[0];
-		if (strcmp(command, "push") == 0)
-			arg = _atoi(tokens[1]);
-		execute_op(get_operation(command), line_num);
+		instruction = tokens[0];
+		if (strcmp(instruction, "push") == 0)
+			arg = _atoi(tokens[1], line_num);
+		execute_op(instruction, &top, line_num);
 	}
+
 	free(line);
 	free(tokens);
 	fclose(stream);
