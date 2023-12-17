@@ -4,8 +4,6 @@
 #include <unistd.h>
 #include <string.h>
 
-int arg;
-
 /**
  * main - interpret monty byte code
  * @argc: number of arguments
@@ -15,12 +13,22 @@ int arg;
 int main(int argc, char *argv[])
 {
 	FILE *stream;
-	char *instruction, **tokens, *line = NULL;
+	char *instruction, *str_arg = NULL, *line = NULL;
+	char *delim = "$ \n\t\r\v\f";
 	unsigned int line_num = 0;
-	/*int arg = 0;*/
-	stack_t *top = NULL;
+	int status = 0;
 	size_t len = 0;
 	ssize_t nread;
+	stack_t *top = NULL;
+	instruction_t operations[24] = {
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", _add},
+		{NULL, NULL}
+	};
 
 	if (argc != 2)
 	{
@@ -38,20 +46,17 @@ int main(int argc, char *argv[])
 	while ((nread = getline(&line, &len, stream)) != -1)
 	{
 		++line_num;
-		tokens = tokenize(line, "$ \n\t\r\v\f");
-		if (!tokens[0])
+		instruction = strtok(line, delim);
+		if (!instruction)
 		{
 			continue; /* do nothing if line is empty */
 		}
-
-		instruction = tokens[0];
-		if (strcmp(instruction, "push") == 0)
-			arg = _atoi(tokens[1], line_num);
-		execute_op(instruction, &top, line_num);
+		str_arg = strtok(NULL, delim);
+		status = execute_op(instruction, str_arg, operations, &top, line_num);
 	}
 
 	free(line);
-	free(tokens);
+	free_stack(top);
 	fclose(stream);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }

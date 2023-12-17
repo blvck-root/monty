@@ -1,39 +1,43 @@
 #include "monty.h"
 #include <string.h>
 
+int n = 0;
+
 /**
- * execute_op - handle instruction
- * @opcode: name of operation
- * @top: pointer to the top of a stack
- * @line_num: line number
- * Return: void
+ * get_instruction - get instruction object
+ * @opcode: string representation of an instruction
+ * @operations: array of instructions to search
+ * Return: instruction object, or NULL
  */
-void execute_op(char *opcode, stack_t **top, unsigned int line_num)
+instruction_t get_instruction(char *opcode, instruction_t operations[])
 {
 	int i;
-	instruction_t operations[24] = {
-		{"push", push},
-		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", _add},
-		{NULL, NULL}
-	};
-	(void) arg;
 
 	for (i = 0; operations[i].opcode != NULL; i++)
 	{
 		if (strcmp(operations[i].opcode, opcode) == 0)
-		{
-			operations[i].f(top, line_num);
-			break;
-		}
+			return (operations[i]);
 	}
+	return (operations[i]);
+}
 
-	if (operations[i].opcode == NULL)
-	{
-		fprintf(stderr, "L%u: unknown instruction %s\n", line_num, opcode);
-		exit(EXIT_FAILURE);
-	}
+/**
+ * execute_op - handle instruction
+ * @line: text line from file
+ * @top: pointer to the top of a stack
+ * @line_num: line number
+ * Return: void
+ */
+int execute_op(char *opcode, char *arg, instruction_t operations[], stack_t **stack, unsigned int line_num)
+{
+	instruction_t instruction;
+
+	if (check_instruction(opcode, arg, stack, line_num) == 1)
+		return (1); /* execution failed */
+	
+	/* execute instruction if valid */
+	n = arg == NULL ? 0 : atoi(arg);
+	instruction = get_instruction(opcode, operations);
+	instruction.f(stack, line_num);
+	return (0);
 }

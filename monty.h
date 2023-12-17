@@ -37,12 +37,15 @@ typedef struct instruction_s
 } instruction_t;
 
 /* external variables */
-extern int arg;
+extern int n;
+
+/* error handlers */
+int is_integer(const char *str);
+int check_instruction(char *opcode, char *arg, stack_t **stack, unsigned int line_num);
 
 /* helper functions */
-char **tokenize(char *str, char *delim);
-int _atoi(const char *str, unsigned int line_num);
-void execute_op(char *opcode, stack_t **top, unsigned int line_num);
+instruction_t get_instruction(char *opcode, instruction_t operations[]);
+int execute_op(char *opcode, char *arg, instruction_t operations[], stack_t **stack, unsigned int line_num);
 
 /* stack functions */
 void push(stack_t **stack, unsigned int line_number);
@@ -60,5 +63,6 @@ void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
+void free_stack(stack_t *stack);
 
 #endif
